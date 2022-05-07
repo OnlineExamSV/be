@@ -1,0 +1,48 @@
+{
+  "name": "ExamUser",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "studentCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "examId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalPoint",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "answerSheet",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "timeStart",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "timeFinish",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "timeRemaining",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "exam_user",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220202090355"
+}
