@@ -76,10 +76,6 @@ public class TeacherResource {
      */
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
-        log.debug("REST request to save Teacher : {}", teacher);
-        //        if (teacher.getId() != null) {
-        //            throw new BadRequestAlertException("A new teacher cannot already have an ID", ENTITY_NAME, "idexists");
-        //        }
         Optional<User> userCreate = userService.getUserWithAuthorities();
         Long idTeacher = teacher.getId();
         if (teacher.getId() == null) {

@@ -59,8 +59,8 @@ public class ExamRepositoryCustomImpl implements ExamRepositoryCustom {
             .addScalar("subjectCode", new StringType())
             .addScalar("subjectName", new StringType())
             .addScalar("status", new BooleanType())
-            .addScalar("beginExam", new DateType())
-            .addScalar("finishExam", new DateType())
+            .addScalar("beginExam", new InstantType())
+            .addScalar("finishExam", new InstantType())
             .addScalar("durationExam", new IntegerType())
             .setResultTransformer(Transformers.aliasToBean(ExamDTO.class));
         if (null != subjectCode.getTeacherCode()) {
@@ -101,8 +101,8 @@ public class ExamRepositoryCustomImpl implements ExamRepositoryCustom {
             .addScalar("subjectCode", new StringType())
             .addScalar("subjectName", new StringType())
             .addScalar("status", new BooleanType())
-            .addScalar("beginExam", new DateType())
-            .addScalar("finishExam", new DateType())
+            .addScalar("beginExam", new InstantType())
+            .addScalar("finishExam", new InstantType())
             .addScalar("durationExam", new IntegerType())
             .setResultTransformer(Transformers.aliasToBean(ExamDTO.class));
         if (null != subjectCode.getTeacherCode()) {
@@ -138,8 +138,8 @@ public class ExamRepositoryCustomImpl implements ExamRepositoryCustom {
             .addScalar("id", new LongType())
             .addScalar("title", new StringType())
             .addScalar("subjectName", new StringType())
-            .addScalar("beginExam", new DateType())
-            .addScalar("finishExam", new DateType())
+            .addScalar("beginExam", new InstantType())
+            .addScalar("finishExam", new InstantType())
             .addScalar("durationExam", new IntegerType())
             .setResultTransformer(Transformers.aliasToBean(ExamDTO.class));
         if (null != studentCode) {

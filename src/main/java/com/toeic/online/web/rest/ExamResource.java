@@ -57,10 +57,6 @@ public class ExamResource {
      */
     @PostMapping("/exams")
     public ResponseEntity<Exam> createExam(@RequestBody ExamDTO examDTO) throws URISyntaxException {
-        log.debug("REST request to save Exam : {}", examDTO);
-        //        if (exam.getId() != null) {
-        //            throw new BadRequestAlertException("A new exam cannot already have an ID", ENTITY_NAME, "idexists");
-        //        }
         Exam exam = this.convertExamt(examDTO);
         Optional<User> userLogin = userService.getUserWithAuthorities();
         if (exam.getId() == null) {
@@ -231,8 +227,8 @@ public class ExamResource {
     // Mapper examDTO => exam
     public Exam convertExamt(ExamDTO examDTO) {
         Exam exam = new Exam();
-        exam.setBeginExam(examDTO.getBeginExam().toInstant());
-        exam.setFinishExam(examDTO.getFinishExam().toInstant());
+        exam.setBeginExam(examDTO.getBeginExam());
+        exam.setFinishExam(examDTO.getFinishExam());
         exam.setDurationExam(examDTO.getDurationExam());
         exam.setSubjectCode(examDTO.getSubjectCode());
         exam.setQuestionData(examDTO.getQuestionData());

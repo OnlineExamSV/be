@@ -1,5 +1,6 @@
 package com.toeic.online.service.dto;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +17,11 @@ public class ExamDTO {
 
     private Long id;
 
-    private Date beginExam;
+    private Instant beginExam;
 
     private Integer durationExam;
 
-    private Date finishExam;
+    private Instant finishExam;
 
     private String questionData;
 
@@ -41,4 +42,6 @@ public class ExamDTO {
     private String updateName;
 
     private List<QuestionDTO> lstQuestion;
+
+    private Integer statusExam;
 }

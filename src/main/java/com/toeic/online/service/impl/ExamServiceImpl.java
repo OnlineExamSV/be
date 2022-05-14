@@ -1,7 +1,9 @@
 package com.toeic.online.service.impl;
 
 import com.toeic.online.domain.Exam;
+import com.toeic.online.domain.ExamUser;
 import com.toeic.online.repository.ExamRepository;
+import com.toeic.online.repository.ExamUserRepository;
 import com.toeic.online.repository.QuestionRepositoryCustom;
 import com.toeic.online.repository.StudentRepositoryCustom;
 import com.toeic.online.repository.impl.ExamRepositoryCustomImpl;
@@ -11,8 +13,9 @@ import com.toeic.online.service.dto.ClassroomSearchDTO;
 import com.toeic.online.service.dto.ExamDTO;
 import com.toeic.online.service.dto.QuestionDTO;
 import com.toeic.online.service.dto.StudentDTO;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +32,21 @@ public class ExamServiceImpl implements ExamService {
 
     private final StudentRepositoryCustom studentRepositoryCustom;
 
+    private final ExamUserRepository examUserRepository;
+
     public ExamServiceImpl(
         ExamRepositoryCustomImpl examRepositoryCustom,
         ExamRepository examRepository,
         QuestionRepositoryCustom questionRepositoryCustom,
         QuestionService questionService,
-        StudentRepositoryCustom studentRepositoryCustom
-    ) {
+        StudentRepositoryCustom studentRepositoryCustom,
+        ExamUserRepository examUserRepository) {
         this.examRepositoryCustom = examRepositoryCustom;
         this.examRepository = examRepository;
         this.questionRepositoryCustom = questionRepositoryCustom;
         this.questionService = questionService;
         this.studentRepositoryCustom = studentRepositoryCustom;
+        this.examUserRepository = examUserRepository;
     }
 
     @Override
@@ -64,26 +70,35 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ExamDTO dataExamStudent(Long id) {
+    public ExamDTO dataExamStudent(Long id, String studentCode) {
         // Lấy thông tin của exam
         Optional<Exam> exam = examRepository.findById(id);
         ExamDTO examDTO = new ExamDTO();
-        try {
+//        try {
             if (exam.isPresent()) {
                 SimpleDateFormat dfm = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 // Convert exam => examDTO
                 Exam exam2 = exam.get();
                 examDTO.setId(exam2.getId());
-                examDTO.setBeginExam(dfm.parse(exam2.getBeginExam().toString()));
+//                examDTO.setBeginExam(dfm.parse(exam2.getBeginExam().toString()));
+                examDTO.setBeginExam(exam2.getBeginExam());
                 examDTO.setDurationExam(exam2.getDurationExam());
-                examDTO.setFinishExam(dfm.parse(exam2.getFinishExam().toString()));
+//                examDTO.setFinishExam(dfm.parse(exam2.getFinishExam().toString()));
+                examDTO.setFinishExam(exam2.getFinishExam());
                 examDTO.setTitle(exam2.getTitle());
                 examDTO.setQuestionData(exam2.getQuestionData());
+                // Kiểm tra xem sinh viên đã thi chưa
+                List<ExamUser> lstExamUser = examUserRepository.getListByStudentCodeAndExamId(studentCode, id);
+                if(examDTO.getFinishExam().compareTo(Instant.now()) <= 0 || lstExamUser.size() > 0){
+                    examDTO.setStatusExam(1);
+                }else{
+                    examDTO.setStatusExam(0);
+                }
                 if (!examDTO.getQuestionData().isEmpty()) examDTO.setLstQuestion(this.getListQuestion(examDTO.getQuestionData()));
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         return examDTO;
     }
 

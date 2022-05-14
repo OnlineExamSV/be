@@ -13,7 +13,7 @@ public interface ExamService {
 
     List<ExamDTO> getListExamByStudentCode(String studentCode);
 
-    ExamDTO dataExamStudent(Long id);
+    ExamDTO dataExamStudent(Long id, String studentCode);
 
     List<StudentDTO> getPointExamStudent(Long examId);
 }

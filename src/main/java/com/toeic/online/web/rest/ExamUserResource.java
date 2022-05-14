@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
+import javax.ws.rs.QueryParam;
+
 /**
  * REST controller for managing {@link com.toeic.online.domain.ExamUser}.
  */
@@ -220,8 +222,9 @@ public class ExamUserResource {
 
     // Lấy thông tin data của bài thi
     @GetMapping("/exam-users/findByExamId/{id}")
-    public ResponseEntity<?> findByExamId(@PathVariable Long id) {
-        ExamDTO examDTO = examService.dataExamStudent(id);
+    public ResponseEntity<?> findByExamId(@PathVariable Long id,
+                                          @RequestParam("studentCode") String studentCode) {
+        ExamDTO examDTO = examService.dataExamStudent(id, studentCode);
         return ResponseEntity.ok().body(examDTO);
     }
 }
