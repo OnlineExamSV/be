@@ -1,0 +1,32 @@
+{
+  "name": "Choice",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "questionId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "choiceText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "corrected",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "choice",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220202090546"
+}

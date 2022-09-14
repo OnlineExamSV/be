@@ -1,0 +1,64 @@
+{
+  "name": "Exam",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "beginExam",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "durationExam",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "finishExam",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "questionData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subjectCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updateDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateName",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "exam",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220202090134"
+}

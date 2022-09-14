@@ -1,0 +1,32 @@
+{
+  "name": "HistoryContactDetails",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "historyContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isOpen",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "history_contact_details",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220202091147"
+}

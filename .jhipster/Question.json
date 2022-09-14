@@ -1,0 +1,60 @@
+{
+  "name": "Question",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "questionType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "questionText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subjectCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "point",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updateDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateName",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "question",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220202090706"
+}
