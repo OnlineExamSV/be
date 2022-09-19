@@ -48,7 +48,7 @@ spring:
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://test.cquf92ctpyaj.ap-southeast-1.rds.amazonaws.com:3306/thi_online?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://test.cquf92ctpyaj.ap-southeast-1.rds.amazonaws.com:3306/toeic_online_2?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: admin
     password: Anh31101999
     hikari:

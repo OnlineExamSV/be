@@ -1,5 +1,6 @@
 package com.toeic.online.web.rest;
 
+import com.toeic.online.domain.Classroom;
 import com.toeic.online.domain.Exam;
 import com.toeic.online.domain.User;
 import com.toeic.online.repository.ExamRepository;
@@ -11,6 +12,7 @@ import com.toeic.online.service.dto.StudentDTO;
 import com.toeic.online.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -215,13 +217,20 @@ public class ExamResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/exams/{id}")
-    public ResponseEntity<Void> deleteExam(@PathVariable Long id) {
-        log.debug("REST request to delete Exam : {}", id);
-        examRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+    public ResponseEntity<?> deleteExam(@RequestBody Exam exam) {
+//        log.debug("REST request to delete Exam : {}", id);
+//        examRepository.deleteById(id);
+//        return ResponseEntity
+//            .noContent()
+//            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+//            .build();
+        Exam examOld = examRepository.findById(exam.getId()).get();
+        Optional<User> userCreate = userService.getUserWithAuthorities();
+        examOld.setStatus(false);
+        examOld.setUpdateDate(Instant.now());
+        examOld.setUpdateName(userCreate.get().getLogin());
+        examRepository.save(examOld);
+        return ResponseEntity.ok().body(examOld);
     }
 
     // Mapper examDTO => exam
