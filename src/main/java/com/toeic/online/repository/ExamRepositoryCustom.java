@@ -2,6 +2,7 @@ package com.toeic.online.repository;
 
 import com.toeic.online.domain.Exam;
 import com.toeic.online.service.dto.ClassroomSearchDTO;
+import com.toeic.online.service.dto.ClassroomStudentDTO;
 import com.toeic.online.service.dto.ExamDTO;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface ExamRepositoryCustom {
     List<ExamDTO> export(ClassroomSearchDTO subjectCode);
 
     List<ExamDTO> getListExamByStudentCode(String studentCode);
+
+    ExamDTO findById(Long id);
 }

@@ -204,10 +204,12 @@ public class ExamResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the exam, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/exams/{id}")
-    public ResponseEntity<Exam> getExam(@PathVariable Long id) {
-        log.debug("REST request to get Exam : {}", id);
-        Optional<Exam> exam = examRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(exam);
+    public ResponseEntity<?> getExam(@PathVariable Long id) {
+//        log.debug("REST request to get Exam : {}", id);
+//        Optional<Exam> exam = examRepository.findById(id);
+//        return ResponseUtil.wrapOrNotFound(exam);
+        ExamDTO examDTO = examService.findById(id);
+        return ResponseEntity.ok().body(examDTO);
     }
 
     /**
@@ -216,7 +218,7 @@ public class ExamResource {
      * @param id the id of the exam to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/exams/{id}")
+    @PostMapping("/exams/{id}")
     public ResponseEntity<?> deleteExam(@RequestBody Exam exam) {
 //        log.debug("REST request to delete Exam : {}", id);
 //        examRepository.deleteById(id);

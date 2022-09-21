@@ -2,6 +2,7 @@ package com.toeic.online.repository.impl;
 
 import com.toeic.online.repository.ExamRepositoryCustom;
 import com.toeic.online.service.dto.ClassroomSearchDTO;
+import com.toeic.online.service.dto.ClassroomStudentDTO;
 import com.toeic.online.service.dto.ExamDTO;
 import com.toeic.online.service.dto.QuestionDTO;
 import java.util.List;
@@ -146,5 +147,32 @@ public class ExamRepositoryCustomImpl implements ExamRepositoryCustom {
             query.setParameter("studentCode", studentCode);
         }
         return query.list();
+    }
+
+
+    @Override
+    public ExamDTO findById(Long id) {
+        StringBuilder sql = new StringBuilder(
+            " SELECT e.begin_exam as beginExam, e.duration_exam as durationExam, " +
+            " e.finish_exam as finishExam, e.question_data as questionData, " +
+            " e.subject_code as subjectCode, e.title as title, s.class_code as classCode, " +
+            " c.name as name, s.name as subjectName FROM exam e inner join subject s " +
+            " on e.subject_code = s.code inner join classroom c on c.code = s.class_code" +
+            " WHERE e.id =  " + id
+        );
+        NativeQuery<ExamDTO> query = ((Session) entityManager.getDelegate()).createNativeQuery(sql.toString());
+        query
+            .addScalar("id", new LongType())
+            .addScalar("beginExam", new InstantType())
+            .addScalar("durationExam", new IntegerType())
+            .addScalar("finishExam", new InstantType())
+            .addScalar("subjectCode", new StringType())
+            .addScalar("subjectName", new StringType())
+            .addScalar("questionData", new StringType())
+            .addScalar("name", new StringType())
+            .addScalar("title", new StringType())
+            .addScalar("classCode", new StringType())
+            .setResultTransformer(Transformers.aliasToBean(ExamDTO.class));
+        return query.uniqueResult();
     }
 }

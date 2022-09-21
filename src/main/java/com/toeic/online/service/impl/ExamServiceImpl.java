@@ -70,6 +70,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public ExamDTO findById(Long id) {
+        return examRepositoryCustom.findById(id);
+    }
+
+    @Override
     public ExamDTO dataExamStudent(Long id, String studentCode) {
         // Lấy thông tin của exam
         Optional<Exam> exam = examRepository.findById(id);

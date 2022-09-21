@@ -44,4 +44,8 @@ public class ExamDTO {
     private List<QuestionDTO> lstQuestion;
 
     private Integer statusExam;
+
+    private String classCode;
+
+    private String name;
 }
