@@ -16,4 +16,6 @@ public interface ExamService {
     ExamDTO dataExamStudent(Long id, String studentCode);
 
     List<StudentDTO> getPointExamStudent(Long examId);
+
+    ExamDTO findById(Long id);
 }

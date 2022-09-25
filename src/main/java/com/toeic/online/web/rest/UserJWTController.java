@@ -22,9 +22,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controller to authenticate users.
- */
 @RestController
 @RequestMapping("/api")
 public class UserJWTController {
@@ -75,9 +72,6 @@ public class UserJWTController {
         }
     }
 
-    /**
-     * Object to return as body in JWT Authentication.
-     */
     static class JWTToken {
 
         private String jwttoken;

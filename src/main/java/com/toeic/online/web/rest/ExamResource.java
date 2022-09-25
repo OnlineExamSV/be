@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
- * REST controller for managing {@link com.toeic.online.domain.Exam}.
- */
 @RestController
 @RequestMapping("/api")
 @Transactional
@@ -48,13 +45,6 @@ public class ExamResource {
         this.examService = examService;
     }
 
-    /**
-     * {@code POST  /exams} : Create a new exam.
-     *
-     * @param examDTO the exam to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new exam, or with status {@code 400 (Bad Request)} if the exam has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/exams")
     public ResponseEntity<Exam> createExam(@RequestBody ExamDTO examDTO) throws URISyntaxException {
         Exam exam = this.convertExamt(examDTO);
@@ -266,4 +256,10 @@ public class ExamResource {
         List<StudentDTO> lst = examService.getPointExamStudent(examId);
         return ResponseEntity.ok().body(lst);
     }
+
+    @GetMapping("/exams/findById/{id}")
+    public ResponseEntity<?> findByExamId(@PathVariable Long id){
+        ExamDTO examDTO = examService.findById(id);
+        return ResponseEntity.ok().body(examDTO);
+     }
 }

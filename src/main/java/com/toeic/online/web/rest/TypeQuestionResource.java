@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
- * REST controller for managing {@link com.toeic.online.domain.TypeQuestion}.
- */
 @RestController
 @RequestMapping("/api")
 @Transactional
@@ -38,13 +35,6 @@ public class TypeQuestionResource {
         this.typeQuestionRepository = typeQuestionRepository;
     }
 
-    /**
-     * {@code POST  /type-questions} : Create a new typeQuestion.
-     *
-     * @param typeQuestion the typeQuestion to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new typeQuestion, or with status {@code 400 (Bad Request)} if the typeQuestion has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/type-questions")
     public ResponseEntity<TypeQuestion> createTypeQuestion(@RequestBody TypeQuestion typeQuestion) throws URISyntaxException {
         log.debug("REST request to save TypeQuestion : {}", typeQuestion);
@@ -58,16 +48,6 @@ public class TypeQuestionResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /type-questions/:id} : Updates an existing typeQuestion.
-     *
-     * @param id the id of the typeQuestion to save.
-     * @param typeQuestion the typeQuestion to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated typeQuestion,
-     * or with status {@code 400 (Bad Request)} if the typeQuestion is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the typeQuestion couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/type-questions/{id}")
     public ResponseEntity<TypeQuestion> updateTypeQuestion(
         @PathVariable(value = "id", required = false) final Long id,
@@ -92,17 +72,6 @@ public class TypeQuestionResource {
             .body(result);
     }
 
-    /**
-     * {@code PATCH  /type-questions/:id} : Partial updates given fields of an existing typeQuestion, field will ignore if it is null
-     *
-     * @param id the id of the typeQuestion to save.
-     * @param typeQuestion the typeQuestion to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated typeQuestion,
-     * or with status {@code 400 (Bad Request)} if the typeQuestion is not valid,
-     * or with status {@code 404 (Not Found)} if the typeQuestion is not found,
-     * or with status {@code 500 (Internal Server Error)} if the typeQuestion couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PatchMapping(value = "/type-questions/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TypeQuestion> partialUpdateTypeQuestion(
         @PathVariable(value = "id", required = false) final Long id,
@@ -140,23 +109,12 @@ public class TypeQuestionResource {
         );
     }
 
-    /**
-     * {@code GET  /type-questions} : get all the typeQuestions.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of typeQuestions in body.
-     */
     @GetMapping("/type-questions")
     public List<TypeQuestion> getAllTypeQuestions() {
         log.debug("REST request to get all TypeQuestions");
         return typeQuestionRepository.findAll();
     }
 
-    /**
-     * {@code GET  /type-questions/:id} : get the "id" typeQuestion.
-     *
-     * @param id the id of the typeQuestion to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the typeQuestion, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/type-questions/{id}")
     public ResponseEntity<TypeQuestion> getTypeQuestion(@PathVariable Long id) {
         log.debug("REST request to get TypeQuestion : {}", id);
@@ -164,12 +122,6 @@ public class TypeQuestionResource {
         return ResponseUtil.wrapOrNotFound(typeQuestion);
     }
 
-    /**
-     * {@code DELETE  /type-questions/:id} : delete the "id" typeQuestion.
-     *
-     * @param id the id of the typeQuestion to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @DeleteMapping("/type-questions/{id}")
     public ResponseEntity<Void> deleteTypeQuestion(@PathVariable Long id) {
         log.debug("REST request to delete TypeQuestion : {}", id);

@@ -3,9 +3,6 @@ package com.toeic.online.web.rest.vm;
 import com.toeic.online.service.dto.AdminUserDTO;
 import javax.validation.constraints.Size;
 
-/**
- * View Model extending the AdminUserDTO, which is meant to be used in the user management UI.
- */
 public class ManagedUserVM extends AdminUserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 4;
