@@ -2,10 +2,9 @@ package com.toeic.online.service.impl;
 
 import com.toeic.online.domain.Exam;
 import com.toeic.online.domain.ExamUser;
-import com.toeic.online.repository.ExamRepository;
-import com.toeic.online.repository.ExamUserRepository;
-import com.toeic.online.repository.QuestionRepositoryCustom;
-import com.toeic.online.repository.StudentRepositoryCustom;
+import com.toeic.online.domain.Question;
+import com.toeic.online.domain.Subject;
+import com.toeic.online.repository.*;
 import com.toeic.online.repository.impl.ExamRepositoryCustomImpl;
 import com.toeic.online.service.ExamService;
 import com.toeic.online.service.QuestionService;
@@ -34,19 +33,25 @@ public class ExamServiceImpl implements ExamService {
 
     private final ExamUserRepository examUserRepository;
 
+    private final SubjectRepository subjectRepository;
+
+    private final QuestionRepository questionRepository;
+
     public ExamServiceImpl(
         ExamRepositoryCustomImpl examRepositoryCustom,
         ExamRepository examRepository,
         QuestionRepositoryCustom questionRepositoryCustom,
         QuestionService questionService,
         StudentRepositoryCustom studentRepositoryCustom,
-        ExamUserRepository examUserRepository) {
+        ExamUserRepository examUserRepository, SubjectRepository subjectRepository, QuestionRepository questionRepository) {
         this.examRepositoryCustom = examRepositoryCustom;
         this.examRepository = examRepository;
         this.questionRepositoryCustom = questionRepositoryCustom;
         this.questionService = questionService;
         this.studentRepositoryCustom = studentRepositoryCustom;
         this.examUserRepository = examUserRepository;
+        this.subjectRepository = subjectRepository;
+        this.questionRepository = questionRepository;
     }
 
     @Override
@@ -69,10 +74,10 @@ public class ExamServiceImpl implements ExamService {
         return examRepositoryCustom.getListExamByStudentCode(studentCode);
     }
 
-    @Override
-    public ExamDTO findById(Long id) {
-        return examRepositoryCustom.findById(id);
-    }
+//    @Override
+//    public ExamDTO findById(Long id) {
+//        return examRepositoryCustom.findById(id);
+//    }
 
     @Override
     public ExamDTO dataExamStudent(Long id, String studentCode) {
@@ -110,6 +115,36 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public List<StudentDTO> getPointExamStudent(Long examId) {
         return studentRepositoryCustom.getPointExamStudent(examId);
+    }
+
+    @Override
+    public ExamDTO findById(Long id) {
+        ExamDTO examDTO = new ExamDTO();
+        Optional<Exam> exam = examRepository.findById(id);
+        if(exam.isPresent()){
+            examDTO.setId(exam.get().getId());
+            examDTO.setSubjectCode(exam.get().getSubjectCode());
+            Subject subject = subjectRepository.findByCode(examDTO.getSubjectCode());
+            examDTO.setClassCode(subject.getClassCode());
+            examDTO.setBeginExam(exam.get().getBeginExam());
+            examDTO.setDurationExam(exam.get().getDurationExam());
+            examDTO.setFinishExam(exam.get().getFinishExam());
+            examDTO.setTitle(exam.get().getTitle());
+            examDTO.setQuestionData(exam.get().getQuestionData());
+            if(examDTO.getDurationExam().equals(15)){
+                examDTO.setTypeExam("E3");
+            }else if(examDTO.getDurationExam().equals(45)){
+                examDTO.setTypeExam("E2");
+            }else{
+                examDTO.setTypeExam("E1");
+            }
+            // List câu hỏi
+            String[] words = examDTO.getQuestionData().split(",");
+            long[] array = Arrays.asList(words).stream().mapToLong(Long::parseLong).toArray();
+            List<Question> lstQuestions = questionRepository.findByListId(array);
+            examDTO.setLstQuestions(lstQuestions);
+        }
+        return examDTO;
     }
 
     // Hàm lấy thông tin của ds câu hỏi

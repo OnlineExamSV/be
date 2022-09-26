@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
- * REST controller for managing {@link com.toeic.online.domain.TypeExam}.
- */
 @RestController
 @RequestMapping("/api")
 @Transactional
@@ -38,13 +35,6 @@ public class TypeExamResource {
         this.typeExamRepository = typeExamRepository;
     }
 
-    /**
-     * {@code POST  /type-exams} : Create a new typeExam.
-     *
-     * @param typeExam the typeExam to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new typeExam, or with status {@code 400 (Bad Request)} if the typeExam has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/type-exams")
     public ResponseEntity<TypeExam> createTypeExam(@RequestBody TypeExam typeExam) throws URISyntaxException {
         log.debug("REST request to save TypeExam : {}", typeExam);
@@ -58,16 +48,6 @@ public class TypeExamResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /type-exams/:id} : Updates an existing typeExam.
-     *
-     * @param id the id of the typeExam to save.
-     * @param typeExam the typeExam to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated typeExam,
-     * or with status {@code 400 (Bad Request)} if the typeExam is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the typeExam couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/type-exams/{id}")
     public ResponseEntity<TypeExam> updateTypeExam(
         @PathVariable(value = "id", required = false) final Long id,
@@ -92,17 +72,6 @@ public class TypeExamResource {
             .body(result);
     }
 
-    /**
-     * {@code PATCH  /type-exams/:id} : Partial updates given fields of an existing typeExam, field will ignore if it is null
-     *
-     * @param id the id of the typeExam to save.
-     * @param typeExam the typeExam to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated typeExam,
-     * or with status {@code 400 (Bad Request)} if the typeExam is not valid,
-     * or with status {@code 404 (Not Found)} if the typeExam is not found,
-     * or with status {@code 500 (Internal Server Error)} if the typeExam couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PatchMapping(value = "/type-exams/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TypeExam> partialUpdateTypeExam(
         @PathVariable(value = "id", required = false) final Long id,
@@ -140,23 +109,12 @@ public class TypeExamResource {
         );
     }
 
-    /**
-     * {@code GET  /type-exams} : get all the typeExams.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of typeExams in body.
-     */
     @GetMapping("/type-exams")
     public List<TypeExam> getAllTypeExams() {
         log.debug("REST request to get all TypeExams");
         return typeExamRepository.findAll();
     }
 
-    /**
-     * {@code GET  /type-exams/:id} : get the "id" typeExam.
-     *
-     * @param id the id of the typeExam to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the typeExam, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/type-exams/{id}")
     public ResponseEntity<TypeExam> getTypeExam(@PathVariable Long id) {
         log.debug("REST request to get TypeExam : {}", id);
@@ -164,12 +122,6 @@ public class TypeExamResource {
         return ResponseUtil.wrapOrNotFound(typeExam);
     }
 
-    /**
-     * {@code DELETE  /type-exams/:id} : delete the "id" typeExam.
-     *
-     * @param id the id of the typeExam to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @DeleteMapping("/type-exams/{id}")
     public ResponseEntity<Void> deleteTypeExam(@PathVariable Long id) {
         log.debug("REST request to delete TypeExam : {}", id);

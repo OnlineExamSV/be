@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+
+import com.toeic.online.domain.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,9 +45,11 @@ public class ExamDTO {
 
     private List<QuestionDTO> lstQuestion;
 
+    private List<Question> lstQuestions;
+
     private Integer statusExam;
 
     private String classCode;
 
-    private String name;
+    private String typeExam;
 }

@@ -29,9 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
- * REST controller for managing {@link com.toeic.online.domain.Teacher}.
- */
 @RestController
 @RequestMapping("/api")
 @Transactional
@@ -67,13 +64,6 @@ public class TeacherResource {
         this.exportUtils = exportUtils;
     }
 
-    /**
-     * {@code POST  /teachers} : Create a new teacher.
-     *
-     * @param teacher the teacher to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new teacher, or with status {@code 400 (Bad Request)} if the teacher has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         Optional<User> userCreate = userService.getUserWithAuthorities();
@@ -124,16 +114,6 @@ public class TeacherResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /teachers/:id} : Updates an existing teacher.
-     *
-     * @param id the id of the teacher to save.
-     * @param teacher the teacher to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated teacher,
-     * or with status {@code 400 (Bad Request)} if the teacher is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the teacher couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/teachers/{id}")
     public ResponseEntity<Teacher> updateTeacher(@PathVariable(value = "id", required = false) final Long id, @RequestBody Teacher teacher)
         throws URISyntaxException {
@@ -156,17 +136,6 @@ public class TeacherResource {
             .body(result);
     }
 
-    /**
-     * {@code PATCH  /teachers/:id} : Partial updates given fields of an existing teacher, field will ignore if it is null
-     *
-     * @param id the id of the teacher to save.
-     * @param teacher the teacher to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated teacher,
-     * or with status {@code 400 (Bad Request)} if the teacher is not valid,
-     * or with status {@code 404 (Not Found)} if the teacher is not found,
-     * or with status {@code 500 (Internal Server Error)} if the teacher couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PatchMapping(value = "/teachers/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Teacher> partialUpdateTeacher(
         @PathVariable(value = "id", required = false) final Long id,
@@ -230,23 +199,12 @@ public class TeacherResource {
         );
     }
 
-    /**
-     * {@code GET  /teachers} : get all the teachers.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teachers in body.
-     */
     @GetMapping("/teachers")
     public List<Teacher> getAllTeachers() {
         log.debug("REST request to get all Teachers");
         return teacherRepository.findAll();
     }
 
-    /**
-     * {@code GET  /teachers/:id} : get the "id" teacher.
-     *
-     * @param id the id of the teacher to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the teacher, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/teachers/{id}")
     public ResponseEntity<Teacher> getTeacher(@PathVariable Long id) {
         log.debug("REST request to get Teacher : {}", id);
@@ -254,10 +212,6 @@ public class TeacherResource {
         return ResponseUtil.wrapOrNotFound(teacher);
     }
 
-    /**
-     * {@code DELETE  /teachers/:id} : delete the "id" teacher.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @PostMapping("/teachers/delete")
     public ResponseEntity<?> deleteTeacher(@RequestBody Teacher teacher) {
         log.debug("REST request to delete Teacher : {}", teacher);

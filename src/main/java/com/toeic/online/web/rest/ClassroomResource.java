@@ -32,9 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
- * REST controller for managing {@link com.toeic.online.domain.Classroom}.
- */
 @RestController
 @RequestMapping("/api")
 @Transactional
@@ -76,13 +73,6 @@ public class ClassroomResource {
         this.classroomRepository = classroomRepository;
     }
 
-    /**
-     * {@code POST  /classrooms} : Create a new classroom.
-     *
-     * @param classroom the classroom to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new classroom, or with status {@code 400 (Bad Request)} if the classroom has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/classrooms")
     public ResponseEntity<Classroom> createClassroom(@RequestBody Classroom classroom) throws URISyntaxException {
         log.debug("REST request to save Classroom : {}", classroom);
@@ -105,128 +95,12 @@ public class ClassroomResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /classrooms/:id} : Updates an existing classroom.
-     *
-     * @param id the id of the classroom to save.
-     * @param classroom the classroom to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated classroom,
-     * or with status {@code 400 (Bad Request)} if the classroom is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the classroom couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/classrooms/{id}")
-    public ResponseEntity<Classroom> updateClassroom(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Classroom classroom
-    ) throws URISyntaxException {
-        log.debug("REST request to update Classroom : {}, {}", id, classroom);
-        if (classroom.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, classroom.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!classroomRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Classroom result = classroomRepository.save(classroom);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, classroom.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PATCH  /classrooms/:id} : Partial updates given fields of an existing classroom, field will ignore if it is null
-     *
-     * @param id the id of the classroom to save.
-     * @param classroom the classroom to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated classroom,
-     * or with status {@code 400 (Bad Request)} if the classroom is not valid,
-     * or with status {@code 404 (Not Found)} if the classroom is not found,
-     * or with status {@code 500 (Internal Server Error)} if the classroom couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/classrooms/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Classroom> partialUpdateClassroom(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Classroom classroom
-    ) throws URISyntaxException {
-        log.debug("REST request to partial update Classroom partially : {}, {}", id, classroom);
-        if (classroom.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, classroom.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!classroomRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Classroom> result = classroomRepository
-            .findById(classroom.getId())
-            .map(
-                existingClassroom -> {
-                    if (classroom.getCode() != null) {
-                        existingClassroom.setCode(classroom.getCode());
-                    }
-                    if (classroom.getName() != null) {
-                        existingClassroom.setName(classroom.getName());
-                    }
-                    if (classroom.getTeacherCode() != null) {
-                        existingClassroom.setTeacherCode(classroom.getTeacherCode());
-                    }
-                    if (classroom.getStatus() != null) {
-                        existingClassroom.setStatus(classroom.getStatus());
-                    }
-                    if (classroom.getAvatar() != null) {
-                        existingClassroom.setAvatar(classroom.getAvatar());
-                    }
-                    if (classroom.getCreateDate() != null) {
-                        existingClassroom.setCreateDate(classroom.getCreateDate());
-                    }
-                    if (classroom.getCreateName() != null) {
-                        existingClassroom.setCreateName(classroom.getCreateName());
-                    }
-                    if (classroom.getUpdateDate() != null) {
-                        existingClassroom.setUpdateDate(classroom.getUpdateDate());
-                    }
-                    if (classroom.getUpdateName() != null) {
-                        existingClassroom.setUpdateName(classroom.getUpdateName());
-                    }
-
-                    return existingClassroom;
-                }
-            )
-            .map(classroomRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, classroom.getId().toString())
-        );
-    }
-
-    /**
-     * {@code GET  /classrooms} : get all the classrooms.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of classrooms in body.
-     */
     @GetMapping("/classrooms")
     public List<Classroom> getAllClassrooms() {
         log.debug("REST request to get all Classrooms");
         return classroomRepository.findAll();
     }
 
-    /**
-     * {@code GET  /classrooms/:id} : get the "id" classroom.
-     *
-     * @param id the id of the classroom to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the classroom, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/classrooms/{id}")
     public ResponseEntity<Classroom> getClassroom(@PathVariable Long id) {
         log.debug("REST request to get Classroom : {}", id);
@@ -234,10 +108,6 @@ public class ClassroomResource {
         return ResponseUtil.wrapOrNotFound(classroom);
     }
 
-    /**
-     * {@code DELETE  /classrooms/:id} : delete the "id" classroom.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @PostMapping("/classrooms/delete")
     public ResponseEntity<?> deleteClassroom(@RequestBody Classroom classroom) {
         log.debug("REST request to delete Classroom : {}", classroom);
