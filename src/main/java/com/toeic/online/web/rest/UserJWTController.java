@@ -22,6 +22,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 /**
  * Controller to authenticate users.
  */
@@ -73,6 +75,12 @@ public class UserJWTController {
         } catch (AuthenticationException ex) {
             throw new UserNotActivatedException("Đăng nhập không thành công");
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getInfoUserLogin(){
+        User user = userService.getUserWithAuthorities().get();
+        return ResponseEntity.ok().body(user);
     }
 
     /**

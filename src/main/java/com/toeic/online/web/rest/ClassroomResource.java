@@ -2,7 +2,6 @@ package com.toeic.online.web.rest;
 
 import com.toeic.online.commons.ExportUtils;
 import com.toeic.online.commons.FileExportUtil;
-import com.toeic.online.commons.FileUtils;
 import com.toeic.online.constant.AppConstants;
 import com.toeic.online.domain.Classroom;
 import com.toeic.online.domain.User;
@@ -15,7 +14,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 import org.slf4j.Logger;
@@ -23,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -321,7 +318,6 @@ public class ClassroomResource {
     @PostMapping("/classrooms/exportDataErrors")
     public ResponseEntity<?> exportDataErrors(@RequestBody List<ClassroomDTO> lstError) throws Exception {
         byte[] fileData = classroomService.exportExcelClassroomErrors(lstError);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(AppConstants.YYYYMMDDHHSS);
         String fileName = "DS_Lophoc_errors" + AppConstants.DOT + AppConstants.EXTENSION_XLSX;
         return fileExportUtil.responseFileExportWithUtf8FileName(fileData, fileName, AppConstants.MIME_TYPE_XLSX);
     }
