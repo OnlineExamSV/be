@@ -17,7 +17,7 @@ public interface QuestionService {
 
     byte[] exportFileTemplate() throws Exception;
 
-    ServiceResult<?> importQuestion(MultipartFile fileUploads, Long typeImport) throws Exception;
+    byte[] exportExcelQuestionErrors(List<QuestionDTO> listDataErrors) throws Exception;
 
-    byte[] exportExcelStudentErrors(List<QuestionDTO> listDataErrors) throws Exception;
+    ServiceResult<?> importData(MultipartFile fileUploads) throws Exception;
 }

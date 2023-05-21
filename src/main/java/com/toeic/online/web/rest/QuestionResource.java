@@ -9,7 +9,10 @@ import com.toeic.online.service.QuestionService;
 import com.toeic.online.service.UserService;
 import com.toeic.online.service.dto.QuestionDTO;
 import com.toeic.online.service.dto.SearchQuestionDTO;
+import com.toeic.online.service.dto.ServiceResult;
+import com.toeic.online.service.dto.StudentDTO;
 import com.toeic.online.web.rest.errors.BadRequestAlertException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
@@ -18,6 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.ws.rs.Path;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -58,19 +63,8 @@ public class QuestionResource {
         this.questionService = questionService;
     }
 
-    /**
-     * {@code POST  /questions} : Create a new question.
-     *
-     * @param question the question to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new question, or with status {@code 400 (Bad Request)} if the question has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PostMapping("/questions")
     public ResponseEntity<Question> createQuestion(@RequestBody Question question) throws URISyntaxException {
-        //        log.debug("REST request to save Question : {}", question);
-        //        if (question.getId() != null) {
-        //            throw new BadRequestAlertException("A new question cannot already have an ID", ENTITY_NAME, "idexists");
-        //        }
         Optional<User> userLogin = userService.getUserWithAuthorities();
         if (question.getId() == null) {
             question.setCreateDate(Instant.now());
@@ -87,16 +81,6 @@ public class QuestionResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /questions/:id} : Updates an existing question.
-     *
-     * @param id the id of the question to save.
-     * @param question the question to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated question,
-     * or with status {@code 400 (Bad Request)} if the question is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the question couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/questions/{id}")
     public ResponseEntity<Question> updateQuestion(
         @PathVariable(value = "id", required = false) final Long id,
@@ -121,18 +105,7 @@ public class QuestionResource {
             .body(result);
     }
 
-    /**
-     * {@code PATCH  /questions/:id} : Partial updates given fields of an existing question, field will ignore if it is null
-     *
-     * @param id the id of the question to save.
-     * @param question the question to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated question,
-     * or with status {@code 400 (Bad Request)} if the question is not valid,
-     * or with status {@code 404 (Not Found)} if the question is not found,
-     * or with status {@code 500 (Internal Server Error)} if the question couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/questions/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/questions/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<Question> partialUpdateQuestion(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Question question
@@ -195,23 +168,12 @@ public class QuestionResource {
         );
     }
 
-    /**
-     * {@code GET  /questions} : get all the questions.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of questions in body.
-     */
     @GetMapping("/questions")
     public List<Question> getAllQuestions() {
         log.debug("REST request to get all Questions");
         return questionRepository.findAll();
     }
 
-    /**
-     * {@code GET  /questions/:id} : get the "id" question.
-     *
-     * @param id the id of the question to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the question, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/questions/{id}")
     public ResponseEntity<Question> getQuestion(@PathVariable Long id) {
         log.debug("REST request to get Question : {}", id);
@@ -219,12 +181,6 @@ public class QuestionResource {
         return ResponseUtil.wrapOrNotFound(question);
     }
 
-    /**
-     * {@code DELETE  /questions/:id} : delete the "id" question.
-     *
-     * @param id the id of the question to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @DeleteMapping("/questions/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
         log.debug("REST request to delete Question : {}", id);
@@ -263,6 +219,19 @@ public class QuestionResource {
         log.info("REST request to export template Teacher");
         byte[] fileData = questionService.exportFileTemplate();
         String fileName = "DS_SV" + AppConstants.EXTENSION_XLSX;
+        return fileExportUtil.responseFileExportWithUtf8FileName(fileData, fileName, AppConstants.MIME_TYPE_XLSX);
+    }
+
+    @PostMapping("/questions/importData")
+    public ServiceResult<?> importData(@RequestParam("file") MultipartFile file)
+        throws Exception {
+        return questionService.importData(file);
+    }
+
+    @PostMapping("/questions/exportDataErrors")
+    public ResponseEntity<?> exportDataErrors(@RequestBody List<QuestionDTO> lstError) throws Exception {
+        byte[] fileData = questionService.exportExcelQuestionErrors(lstError);
+        String fileName = "DS_Cau_Hoi_errors" + AppConstants.DOT + AppConstants.EXTENSION_XLSX;
         return fileExportUtil.responseFileExportWithUtf8FileName(fileData, fileName, AppConstants.MIME_TYPE_XLSX);
     }
 }

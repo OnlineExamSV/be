@@ -16,4 +16,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query(value = "SELECT * FROM subject s INNER JOIN classroom c ON s.class_code = c.code WHERE c.code = ?1", nativeQuery = true)
     List<Subject> findByClassCode(String classCode);
+
+    @Query(value = "SELECT * FROM subject s WHERE s.status = 1", nativeQuery = true)
+    List<Subject> findAllByStatusActive();
 }

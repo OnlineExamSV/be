@@ -1,5 +1,7 @@
 package com.toeic.online.domain;
 
+import com.toeic.online.service.dto.QuestionDTO;
+
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -229,4 +231,20 @@ public class Question implements Serializable {
             ", updateName='" + getUpdateName() + "'" +
             "}";
     }
+
+    public Question(QuestionDTO dto){
+        this.id = dto.getId();
+        this.questionText = dto.getQuestionText();
+        this.level = dto.getLevel();
+        this.point = dto.getPoint();
+        this.createDate = dto.getCreateDate();
+        this.createName = dto.getCreateName();
+        this.updateDate = dto.getUpdateDate();
+        this.updateName = dto.getUpdateName();
+        this.questionType = dto.getQuestionType();
+        this.status = dto.getStatus();
+        this.subjectCode = dto.getSubjectCode();
+    }
+
+    public Question(){}
 }

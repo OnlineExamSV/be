@@ -1,6 +1,5 @@
 package com.toeic.online.service.dto;
 
-import com.toeic.online.domain.Choice;
 import java.time.Instant;
 import java.util.List;
 import lombok.AllArgsConstructor;

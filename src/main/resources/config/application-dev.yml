@@ -31,9 +31,9 @@ spring:
       label: main
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://test.cquf92ctpyaj.ap-southeast-1.rds.amazonaws.com:3306/thi_online?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://14.225.254.18:3306/toeic_online?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: admin
-    password: Anh31101999
+    password: LeAnh@31101999
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -67,13 +67,13 @@ spring:
         enabled: true
 
 server:
-  port: 8080
+  port: 8084
 
 jhipster:
   registry:
     password: admin
   cors:
-    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200, https://thi-thu-online.web.app, http://18.142.48.108:8184'
+    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200, https://thi-thu-online.web.app, http://14.225.254.18:8184'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
